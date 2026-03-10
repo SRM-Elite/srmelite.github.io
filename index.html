@@ -5,244 +5,835 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SRM Elite Tax Consultancy</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
-    body { background: #f6f7fb; color: #222; line-height: 1.6; }
-    header { background: linear-gradient(135deg, #0b4f6c, #1572a1); color: #fff; padding: 24px 16px 40px; }
-    .container { max-width: 1000px; margin: 0 auto; padding: 0 16px; }
-    .logo { font-size: 20px; font-weight: bold; letter-spacing: 1px; }
-    nav { margin-top: 12px; }
-    nav a { color: #e3f2fd; margin-right: 16px; text-decoration: none; font-size: 13px; }
-    nav a:hover { text-decoration: underline; }
-    .hero { margin-top: 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 20px; }
-    .hero-text { flex: 1 1 260px; }
-    .hero-title { font-size: 26px; margin-bottom: 8px; font-weight: bold; }
-    .hero-sub { font-size: 14px; margin-bottom: 10px; color: #cfe8ff; }
-    .hero-p { font-size: 14px; max-width: 480px; margin-bottom: 16px; }
-    .hero-buttons a { display: inline-block; margin-right: 10px; margin-bottom: 8px; padding: 8px 16px; border-radius: 20px; font-size: 13px; text-decoration: none; }
-    .btn-primary { background: #ffb703; color: #222; }
-    .btn-outline { border: 1px solid #e3f2fd; color: #e3f2fd; }
-    .hero-badge { font-size: 11px; padding: 4px 10px; border-radius: 999px; background: rgba(255,255,255,0.1); display: inline-block; margin-bottom: 10px; }
-    .hero-side { flex: 1 1 260px; background: rgba(255,255,255,0.08); border-radius: 12px; padding: 16px; font-size: 13px; }
-    .hero-side h3 { font-size: 15px; margin-bottom: 8px; }
-    .hero-side ul { list-style: none; }
-    .hero-side li { margin-bottom: 6px; }
+    :root {
+      --bg: #050816;
+      --bg-alt: #070b1f;
+      --card: #0b1024;
+      --accent: #ffb703;
+      --accent-soft: rgba(255, 183, 3, 0.15);
+      --text: #e4ecff;
+      --muted: #a3b1d1;
+      --border: #1b2340;
+    }
 
-    section { padding: 32px 0; }
-    h2.section-title { font-size: 20px; margin-bottom: 8px; }
-    p.section-sub { font-size: 13px; color: #555; margin-bottom: 18px; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Helvetica, Arial, sans-serif;
+    }
 
-    .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; }
-    .card { background: #fff; border-radius: 10px; padding: 16px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); font-size: 13px; }
-    .card h3 { font-size: 15px; margin-bottom: 6px; color: #0b4f6c; }
-    .card ul { padding-left: 16px; }
+    body {
+      background: radial-gradient(circle at top, #182848 0, #050816 45%);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
 
-    .why-list li { margin-bottom: 8px; font-size: 13px; }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-    .two-col { display: grid; grid-template-columns: minmax(0,1.3fr) minmax(0,1fr); gap: 22px; align-items: flex-start; }
-    @media (max-width: 768px) { .two-col { grid-template-columns: 1fr; } }
+    /* Layout */
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
 
-    form { background: #fff; border-radius: 10px; padding: 16px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); font-size: 13px; }
-    label { display: block; margin-bottom: 4px; font-size: 12px; }
-    input, textarea, select { width: 100%; padding: 7px 9px; margin-bottom: 10px; border: 1px solid #d0d7e2; border-radius: 6px; font-size: 13px; }
-    textarea { min-height: 70px; resize: vertical; }
-    button { padding: 8px 16px; border-radius: 20px; border: none; background: #0b4f6c; color: #fff; font-size: 13px; cursor: pointer; }
-    button:hover { background: #073548; }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(12px);
+      background: linear-gradient(
+        to bottom,
+        rgba(5, 8, 22, 0.95),
+        rgba(5, 8, 22, 0.6)
+      );
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
 
-    footer { background: #0b1727; color: #c3c9d5; padding: 16px; font-size: 11px; text-align: center; }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+    }
 
-    .badge-small { display: inline-block; font-size: 11px; padding: 4px 10px; border-radius: 999px; background: #e3f2fd; color: #0b4f6c; margin-bottom: 10px; }
-    .contact-info p { font-size: 13px; margin-bottom: 6px; }
-    .faq-item { margin-bottom: 10px; font-size: 13px; }
-    .faq-item b { display: block; margin-bottom: 2px; }
+    .logo {
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 14px rgba(255, 183, 3, 0.8);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .nav-links a {
+      padding: 4px 0;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 999px;
+      transition: width 0.18s ease-out;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 32px 0 40px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 28px;
+      align-items: center;
+    }
+
+    @media (max-width: 880px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        padding-top: 12px;
+      }
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      background: rgba(16, 24, 64, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .hero-kicker span {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #4ade80;
+      box-shadow: 0 0 10px rgba(74, 222, 128, 0.9);
+    }
+
+    .hero-title {
+      font-size: clamp(26px, 4vw, 34px);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .hero-highlight {
+      background: linear-gradient(90deg, #ffb703, #ffd166);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-sub {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .hero-p {
+      font-size: 14px;
+      max-width: 520px;
+      color: #ccd7ff;
+      margin-bottom: 18px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 9px 18px;
+      font-size: 13px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.12s ease-out, box-shadow 0.12s ease-out,
+        background 0.12s ease-out, color 0.12s ease-out;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #231815;
+      box-shadow: 0 8px 24px rgba(255, 183, 3, 0.35);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 28px rgba(255, 183, 3, 0.45);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(10, 18, 48, 0.9);
+      transform: translateY(-1px);
+    }
+
+    .pill {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(10, 18, 48, 0.88);
+      border: 1px dashed rgba(255, 255, 255, 0.12);
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .pill-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .hero-card {
+      background: radial-gradient(circle at top left, #1e293b 0, #020617 55%);
+      border-radius: 18px;
+      padding: 16px 16px 14px;
+      border: 1px solid rgba(148, 163, 199, 0.32);
+      box-shadow: 0 18px 60px rgba(15, 23, 42, 0.78);
+      font-size: 13px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        circle at top right,
+        rgba(56, 189, 248, 0.25),
+        transparent 55%
+      );
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .hero-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .hero-card-title {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #4ade80;
+      box-shadow: 0 0 10px rgba(74, 222, 128, 0.9);
+    }
+
+    .hero-card-list {
+      list-style: none;
+      margin-bottom: 10px;
+      color: #c7d2fe;
+    }
+
+    .hero-card-list li {
+      margin-bottom: 6px;
+      display: flex;
+      gap: 6px;
+      align-items: flex-start;
+    }
+
+    .hero-card-list span {
+      font-size: 11px;
+      opacity: 0.75;
+    }
+
+    .hero-card-tagline {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* Sections */
+    section {
+      padding: 26px 0;
+    }
+
+    .section-header {
+      margin-bottom: 16px;
+    }
+
+    .section-kicker {
+      font-size: 11px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      margin-bottom: 4px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+
+    .section-sub {
+      font-size: 13px;
+      color: var(--muted);
+      max-width: 560px;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.96), #020617);
+      border-radius: 14px;
+      padding: 14px 14px 13px;
+      border: 1px solid rgba(148, 163, 199, 0.4);
+      box-shadow: 0 10px 35px rgba(15, 23, 42, 0.85);
+      font-size: 13px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        circle at top left,
+        rgba(93, 199, 255, 0.16),
+        transparent 60%
+      );
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .card h3 {
+      font-size: 15px;
+      margin-bottom: 6px;
+    }
+
+    .pill-mini {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      font-size: 10px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 199, 0.5);
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .card ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .card ul li {
+      margin-bottom: 5px;
+      display: flex;
+      gap: 6px;
+      align-items: flex-start;
+    }
+
+    .bullet {
+      width: 4px;
+      height: 4px;
+      border-radius: 999px;
+      background: var(--accent);
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+
+    .why-list {
+      list-style: none;
+      font-size: 13px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 10px;
+    }
+
+    .why-list li {
+      background: rgba(10, 20, 48, 0.86);
+      border-radius: 12px;
+      padding: 10px 12px;
+      border: 1px solid rgba(148, 163, 199, 0.4);
+      display: flex;
+      gap: 8px;
+    }
+
+    .why-icon {
+      color: #4ade80;
+      font-size: 13px;
+      margin-top: 2px;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+      gap: 22px;
+      align-items: flex-start;
+    }
+
+    @media (max-width: 880px) {
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    form {
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.96), #020617);
+      border-radius: 14px;
+      padding: 14px;
+      border: 1px solid rgba(148, 163, 199, 0.4);
+      box-shadow: 0 10px 35px rgba(15, 23, 42, 0.85);
+      font-size: 13px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 7px 9px;
+      margin-bottom: 9px;
+      border-radius: 8px;
+      border: 1px solid rgba(148, 163, 199, 0.7);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text);
+      font-size: 13px;
+      outline: none;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(255, 183, 3, 0.3);
+    }
+
+    textarea {
+      min-height: 70px;
+      resize: vertical;
+    }
+
+    .contact-panel {
+      background: rgba(7, 13, 38, 0.96);
+      border-radius: 14px;
+      padding: 14px;
+      border: 1px solid rgba(148, 163, 199, 0.38);
+      box-shadow: 0 10px 35px rgba(15, 23, 42, 0.9);
+      font-size: 13px;
+    }
+
+    .contact-info p {
+      margin-bottom: 6px;
+      color: #cbd5f5;
+    }
+
+    .contact-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .faq-item {
+      margin-bottom: 8px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .faq-item b {
+      display: block;
+      margin-bottom: 2px;
+      color: #e5e7eb;
+    }
+
+    footer {
+      border-top: 1px solid rgba(15, 23, 42, 0.9);
+      background: #020617;
+      color: #9ca3af;
+      font-size: 11px;
+      text-align: center;
+      padding: 12px 8px 14px;
+      margin-top: 10px;
+    }
+
+    footer span {
+      color: #e5e7eb;
+    }
   </style>
 </head>
 <body>
 <header>
-  <div class="container">
-    <div class="logo">SRM Elite Tax Consultancy</div>
-    <nav>
+  <div class="container nav">
+    <div class="logo">
+      <span class="logo-dot"></span>
+      SRM ELITE TAX CONSULTANCY
+    </div>
+    <nav class="nav-links">
       <a href="#services">Services</a>
       <a href="#why">Why us</a>
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
     </nav>
-
-    <div class="hero">
-      <div class="hero-text">
-        <div class="hero-badge">Tax · GST · Accounts</div>
-        <h1 class="hero-title">Simple, reliable tax & accounts support.</h1>
-        <p class="hero-sub">All types of tax and accounts related services we provide.</p>
-        <p class="hero-p">
-          We help individuals, professionals, and businesses handle income tax, GST, TDS and bookkeeping
-          with accuracy and on-time filing, so you can focus on growing your business.
-        </p>
-        <div class="hero-buttons">
-          <!-- Replace the # link with your WhatsApp or phone link -->
-          <a href="tel:+91 8660486870" class="btn-primary">Book consultation</a>
-          <a href="https://wa.me/91 8660486870" class="btn-outline">Call / WhatsApp</a>
-        </div>
-      </div>
-      <div class="hero-side">
-        <h3>Quick snapshot</h3>
-        <ul>
-          <li>✔ Income tax filing & planning</li>
-          <li>✔ GST registration & returns</li>
-          <li>✔ TDS & payroll compliance</li>
-          <li>✔ Accounting & bookkeeping</li>
-          <li>✔ Bengaluru · Online across India</li>
-        </ul>
-      </div>
-    </div>
   </div>
 </header>
 
-<section id="services">
-  <div class="container">
-    <h2 class="section-title">Our services</h2>
-    <p class="section-sub">End‑to‑end tax and accounts support for individuals, professionals and businesses.</p>
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="hero-kicker">
+          <span></span>
+          Tax · GST · Accounts · Compliance
+        </div>
+        <h1 class="hero-title">
+          Simple, reliable
+          <span class="hero-highlight">tax & accounts</span>
+          support.
+        </h1>
+        <p class="hero-sub">
+          All types of tax and accounts related services we provide.
+        </p>
+        <p class="hero-p">
+          We help individuals, professionals and businesses manage income tax, GST, TDS and bookkeeping
+          with accuracy and on‑time filing, so you can focus on growing your business.
+        </p>
+        <div class="hero-actions">
+          <!-- WhatsApp and Call buttons -->
+          <a
+            class="btn btn-primary"
+            href="https://wa.me/918660486870?text=Hi%2C%20I%20want%20to%20book%20a%20tax%20consultation"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Book on WhatsApp
+          </a>
+          <a class="btn btn-ghost" href="tel:+918660486870">
+            Call now
+          </a>
+        </div>
+        <div class="pill">
+          <span class="pill-dot"></span>
+          Bengaluru‑based · Serving clients across India
+        </div>
+      </div>
 
-    <div class="card-grid">
-      <div class="card">
-        <h3>Income tax filing</h3>
-        <ul>
-          <li>ITR filing for salaried, professionals and businesses</li>
-          <li>Tax planning and basic advisory</li>
-          <li>Support for notice responses and rectifications</li>
+      <aside class="hero-card">
+        <div class="hero-card-header">
+          <div>
+            <div class="hero-card-title">Snapshot of services</div>
+            <div style="font-size:11px;color:var(--muted);">
+              One place for tax, GST and accounts.
+            </div>
+          </div>
+          <div class="status-dot"></div>
+        </div>
+        <ul class="hero-card-list">
+          <li>
+            <span>•</span>
+            Income tax filing & planning for individuals, professionals, and businesses.
+          </li>
+          <li>
+            <span>•</span>
+            GST registration, monthly/quarterly returns and reconciliation.
+          </li>
+          <li>
+            <span>•</span>
+            TDS returns, Form 16 / 16A and basic payroll compliance.
+          </li>
+          <li>
+            <span>•</span>
+            Day‑to‑day bookkeeping and simple MIS‑style reports.
+          </li>
         </ul>
+        <div class="hero-card-tagline">
+          Clear communication, transparent fees and a structured approach to compliance.
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-kicker">Services</div>
+        <h2 class="section-title">What we can handle for you</h2>
+        <p class="section-sub">
+          End‑to‑end tax and accounts support for individuals, professionals and growing businesses.
+        </p>
       </div>
-      <div class="card">
-        <h3>GST registration & returns</h3>
-        <ul>
-          <li>New GST registration</li>
-          <li>Monthly / quarterly return filing</li>
-          <li>Reconciliation & compliance support</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>TDS & compliance</h3>
-        <ul>
-          <li>TDS calculation and return filing</li>
-          <li>Form 16 / Form 16A support</li>
-          <li>Basic payroll compliance guidance</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Accounting & bookkeeping</h3>
-        <ul>
-          <li>Day‑to‑day bookkeeping</li>
-          <li>Basic financial statements</li>
-          <li>Simple MIS style reporting</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Business support services</h3>
-        <ul>
-          <li>Assistance with registrations through partners</li>
-          <li>Compliance reminders and tracking</li>
-          <li>Basic finance and tax advisory</li>
-        </ul>
+
+      <div class="card-grid">
+        <article class="card">
+          <div class="pill-mini">Income Tax</div>
+          <h3>Income tax filing</h3>
+          <ul>
+            <li><span class="bullet"></span>ITR filing for salaried, professionals and businesses.</li>
+            <li><span class="bullet"></span>Tax planning and basic advisory.</li>
+            <li><span class="bullet"></span>Support for notice responses and rectifications.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <div class="pill-mini">GST</div>
+          <h3>GST registration & returns</h3>
+          <ul>
+            <li><span class="bullet"></span>New GST registration.</li>
+            <li><span class="bullet"></span>Monthly / quarterly return filing.</li>
+            <li><span class="bullet"></span>Reconciliation and compliance support.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <div class="pill-mini">TDS · Payroll</div>
+          <h3>TDS & compliance</h3>
+          <ul>
+            <li><span class="bullet"></span>TDS calculation and return filing.</li>
+            <li><span class="bullet"></span>Form 16 / Form 16A support.</li>
+            <li><span class="bullet"></span>Basic payroll compliance guidance.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <div class="pill-mini">Accounts</div>
+          <h3>Accounting & bookkeeping</h3>
+          <ul>
+            <li><span class="bullet"></span>Day‑to‑day bookkeeping.</li>
+            <li><span class="bullet"></span>Basic financial statements.</li>
+            <li><span class="bullet"></span>Simple MIS‑style reporting.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <div class="pill-mini">Business support</div>
+          <h3>Business support services</h3>
+          <ul>
+            <li><span class="bullet"></span>Assistance with registrations through professional partners.</li>
+            <li><span class="bullet"></span>Compliance reminders and tracking.</li>
+            <li><span class="bullet"></span>Basic finance and tax advisory.</li>
+          </ul>
+        </article>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="why">
-  <div class="container">
-    <h2 class="section-title">Why choose SRM Elite Tax Consultancy</h2>
-    <p class="section-sub">Focused on clarity, compliance and on‑time delivery.</p>
-    <ul class="why-list">
-      <li>Practical experience with individuals, professionals and SMEs.</li>
-      <li>Single point of contact for tax, GST, TDS and accounts work.</li>
-      <li>Emphasis on timely filing to avoid penalties and interest.</li>
-      <li>Transparent communication and clear fee estimates before work starts.</li>
-    </ul>
-  </div>
-</section>
+  <!-- WHY US -->
+  <section id="why">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-kicker">Why us</div>
+        <h2 class="section-title">Why choose SRM Elite Tax Consultancy</h2>
+        <p class="section-sub">
+          Focused on clarity, compliance and on‑time delivery so you stay free from penalties and last‑minute stress.
+        </p>
+      </div>
 
-<section id="about">
-  <div class="container">
-    <h2 class="section-title">About SRM Elite Tax Consultancy</h2>
-    <p class="section-sub">
-      Bengaluru‑based support for all your tax and accounts requirements.
-    </p>
-    <p style="font-size:13px; margin-bottom:8px;">
-      SRM Elite Tax Consultancy is focused on providing reliable, structured tax and accounts support
-      to individuals, professionals and businesses. We help manage income tax, GST, TDS and bookkeeping in
-      a systematic and compliant way so you can stay organised and stress‑free.
-    </p>
-    <p style="font-size:13px;">
-      We combine experience in finance, compliance and business operations to offer practical,
-      implementation‑oriented solutions instead of just theoretical advice.
-    </p>
-  </div>
-</section>
+      <ul class="why-list">
+        <li>
+          <span class="why-icon">✔</span>
+          <span>Practical experience with individuals, professionals and small businesses.</span>
+        </li>
+        <li>
+          <span class="why-icon">✔</span>
+          <span>Single point of contact for tax, GST, TDS and accounts work.</span>
+        </li>
+        <li>
+          <span class="why-icon">✔</span>
+          <span>Emphasis on timely filing and proper documentation.</span>
+        </li>
+        <li>
+          <span class="why-icon">✔</span>
+          <span>Transparent communication and clear fee estimates before work starts.</span>
+        </li>
+      </ul>
+    </div>
+  </section>
 
-<section id="contact">
-  <div class="container two-col">
-    <div>
-      <h2 class="section-title">Book a consultation</h2>
-      <p class="section-sub">
-        Share your details and we will get in touch to understand your requirement and suggest the right service.
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-kicker">About</div>
+        <h2 class="section-title">About SRM Elite Tax Consultancy</h2>
+        <p class="section-sub">
+          Bengaluru‑based support for all your tax and accounts requirements, with most services delivered fully online.
+        </p>
+      </div>
+      <p style="font-size:13px;margin-bottom:8px;color:#e5e7eb;">
+        SRM Elite Tax Consultancy is focused on providing reliable, structured tax and accounts support
+        to individuals, professionals and businesses. We help manage income tax, GST, TDS and bookkeeping
+        in a systematic and compliant way so you can stay organised and stress‑free.
       </p>
-      <form>
-        <label for="name">Name</label>
-        <input id="name" type="text" placeholder="Your name" />
-
-        <label for="phone">Mobile / WhatsApp</label>
-        <input id="phone" type="tel" placeholder="+91‑" />
-
-        <label for="email">Email</label>
-        <input id="email" type="email" placeholder="you@example.com" />
-
-        <label for="service">Type of service</label>
-        <select id="service">
-          <option>Income tax filing</option>
-          <option>GST registration / returns</option>
-          <option>TDS & compliance</option>
-          <option>Accounting & bookkeeping</option>
-          <option>Other / not sure</option>
-        </select>
-
-        <label for="message">Message / details</label>
-        <textarea id="message" placeholder="Briefly describe what you need help with"></textarea>
-
-        <button type="button">Submit (dummy for now)</button>
-      </form>
+      <p style="font-size:13px;color:#e5e7eb;">
+        We combine experience in finance, compliance and business operations to offer practical,
+        implementation‑oriented solutions instead of just theoretical advice.
+      </p>
     </div>
-    <div>
-      <div class="badge-small">Contact details</div>
-      <div class="contact-info">
-        <p><b>Mobile / WhatsApp:</b> +91‑8660486870</p>
-        <p><b>Email:</b> info@srmelitetax.com</p>
-        <p><b>Location:</b> Bengaluru, Karnataka, India</p>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container two-col">
+      <div>
+        <div class="section-header">
+          <div class="section-kicker">Contact</div>
+          <h2 class="section-title">Book a consultation</h2>
+          <p class="section-sub">
+            Share your details and we will get in touch to understand your requirement and suggest the right service.
+          </p>
+        </div>
+
+        <!-- NOTE: Add your form service URL in action="" when you set it up -->
+        <form action="" method="POST">
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" placeholder="Your name" />
+
+          <label for="phone">Mobile / WhatsApp</label>
+          <input id="phone" name="phone" type="tel" placeholder="+91‑8660486870" />
+
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="srmelitetax@gmail.com" />
+
+          <label for="service">Type of service</label>
+          <select id="service" name="service">
+            <option>Income tax filing</option>
+            <option>GST registration / returns</option>
+            <option>TDS & compliance</option>
+            <option>Accounting & bookkeeping</option>
+            <option>Other / not sure</option>
+          </select>
+
+          <label for="message">Message / details</label>
+          <textarea
+            id="message"
+            name="message"
+            placeholder="Briefly describe what you need help with"
+          ></textarea>
+
+          <button type="submit">Submit enquiry</button>
+        </form>
       </div>
 
-      <div style="margin-top:20px;">
-        <h3 style="font-size:15px; margin-bottom:8px;">FAQs</h3>
-        <div class="faq-item">
-          <b>Who can use your services?</b>
-          <span>Individuals, salaried employees, freelancers, professionals and businesses.</span>
+      <aside class="contact-panel">
+        <div class="contact-label">Direct contact</div>
+        <div class="contact-info">
+          <p><b>Mobile / WhatsApp:</b> +91‑8660486870</p>
+          <p><b>Email:</b> srmelitetax@gmail.com</p>
+          <p><b>Location:</b> Bengaluru, Karnataka, India</p>
         </div>
-        <div class="faq-item">
-          <b>Do you work online?</b>
-          <span>Yes, most services are delivered fully online to clients across India.</span>
+
+        <div style="margin-top:14px;">
+          <div class="contact-label">FAQs</div>
+          <div class="faq-item">
+            <b>Who can use your services?</b>
+            <span>Individuals, salaried employees, freelancers, professionals and businesses.</span>
+          </div>
+          <div class="faq-item">
+            <b>Do you work online?</b>
+            <span>Yes, most services are delivered fully online to clients across India.</span>
+          </div>
+          <div class="faq-item">
+            <b>How are fees decided?</b>
+            <span>Fees depend on type of work, volume and complexity; we share a clear estimate before starting.</span>
+          </div>
         </div>
-        <div class="faq-item">
-          <b>How are fees decided?</b>
-          <span>Fees depend on type of work, volume and complexity; we share a clear estimate before starting.</span>
+
+        <div style="margin-top:14px;">
+          <div class="contact-label">Quick actions</div>
+          <div class="hero-actions" style="margin-top:6px;">
+            <a
+              class="btn btn-primary"
+              href="https://wa.me/918660486870?text=Hi%2C%20I%20want%20to%20discuss%20my%20tax%20or%20accounts"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              WhatsApp now
+            </a>
+            <a class="btn btn-ghost" href="mailto:srmelitetax@gmail.com">
+              Email us
+            </a>
+          </div>
         </div>
-      </div>
+      </aside>
     </div>
-  </div>
-</section>
+  </section>
+</main>
 
 <footer>
   © <span id="year"></span> SRM Elite Tax Consultancy · All rights reserved.
 </footer>
 
 <script>
-  document.getElementById('year').textContent = new Date().getFullYear();
+  document.getElementById("year").textContent = new Date().getFullYear();
 </script>
 </body>
 </html>
-
